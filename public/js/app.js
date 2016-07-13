@@ -75,12 +75,11 @@ $('#albums').on('click', '.delete-song', handleDeleteAlbumClick);
 
 function handleDeleteAlbumClick(e) {
   var albumId = $(this).parents('.album').data('album-id');
-  console.log('someone wants to delete album id=' + albumId );
+  console.log('delete album id=' + albumId );
   $.ajax({
     method: 'DELETE',
     url: ('/api/albums/' + albumId),
     success: function(song) {
-      console.log("He's dead Jim");
       $('[data-album-id='+ albumId + ']').remove(song);
       
     }
