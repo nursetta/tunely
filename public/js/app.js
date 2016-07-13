@@ -68,11 +68,24 @@ $("form").submit(function() {
 
 $('#saveSong').on('click', handleNewSongSubmit);
 
-$('#albums').on('click', '.delete-song', function(e) {
-  console.log(e);
+$('#albums').on('click', '.delete-song', handleDeleteAlbumClick);
 
 });
-});
+
+
+function handleDeleteAlbumClick(e) {
+  var albumId = $(this).parents('.album').data('album-id');
+  console.log('someone wants to delete album id=' + albumId );
+  $.ajax({
+    method: 'DELETE',
+    url: ('/api/albums/' + albumId),
+    success: function(song) {
+      console.log("He's dead Jim");
+      $('[data-album-id='+ albumId + ']').remove(song);
+      
+    }
+  });
+}
 
 // this function takes a song and does something
 function buildSongsHtml(songs) {
@@ -162,7 +175,7 @@ function renderAlbum(album) {
 
   "              <div class='panel-footer'>" +
   "               <button class='btn btn-primary add-song'>Add Song</button>" +
-  "               <button class='btn btn-primary delete-song'>Delete Song</button>" +
+  "               <button class='btn btn-primary delete-song'>Delete Album</button>" +
   "              </div>" +
 
   "            </div>" +
